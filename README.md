@@ -1,2 +1,2 @@
-# idle-apocalypse
-Idle Apocalypse is being made for Game Off 2023
+# apocalypse-cultivator-idle
+Apocalypse Cultivator Idle is being made for Game Off 2023
