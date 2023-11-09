@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://r0cqwdlxea03"]
+
+[ext_resource type="Script" path="res://scripts/AbilityMapGraph.gd" id="1_1e6l2"]
+
+[node name="AbilityMap" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GraphEdit" type="GraphEdit" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+right_disconnects = true
+scroll_offset = Vector2(-40, -40)
+script = ExtResource("1_1e6l2")
+
+[connection signal="connection_request" from="GraphEdit" to="GraphEdit" method="_on_connection_request"]
