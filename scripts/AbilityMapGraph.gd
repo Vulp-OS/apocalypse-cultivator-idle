@@ -15,8 +15,8 @@ func instantiate_dao_from_db():
 	db.path = "res://assets/dao.sqlite"
 	db.open_db()
 	db.query("SELECT dao.name, dao.tier, parent FROM dao LEFT JOIN parents on dao.name=parents.name;")
-	var len = len(db.query_result)
-	for i in len:
+	var length = len(db.query_result)
+	for i in length:
 		var foundational = false
 		var dao = str(db.query_result[i]["name"])
 		var parent = str(db.query_result[i]["parent"])
@@ -26,10 +26,10 @@ func instantiate_dao_from_db():
 		
 		if not get_node_or_null(dao):
 			add_dao(dao, foundational)
-		if parent != "<null>" and not get_node_or_null(parent):
-			add_dao(parent)
-			
-		connect_node(dao, 0, parent, 0)
+		if parent != "<null>":
+			if not get_node_or_null(parent):
+				add_dao(parent)
+			connect_node(dao, 0, parent, 0)
 		
 	db.close_db()
 
