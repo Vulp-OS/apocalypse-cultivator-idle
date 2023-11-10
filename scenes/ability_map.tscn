@@ -20,14 +20,24 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_gkr7f")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="ButtonBar" type="HBoxContainer" parent="VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
-[node name="dao_graph" type="GraphEdit" parent="VBoxContainer"]
+[node name="DaoGraph" type="GraphEdit" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-right_disconnects = true
+scroll_offset = Vector2(0, -27)
 script = ExtResource("2_6dweq")
 
-[connection signal="connection_request" from="VBoxContainer/dao_graph" to="VBoxContainer/dao_graph" method="_on_connection_request"]
+[node name="GraphNode" type="GraphNode" parent="VBoxContainer/DaoGraph"]
+layout_mode = 0
+offset_top = 27.0
+offset_right = 36.0
+offset_bottom = 81.0
+mouse_filter = 1
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+
+[connection signal="connection_request" from="VBoxContainer/DaoGraph" to="VBoxContainer/DaoGraph" method="_on_connection_request"]
