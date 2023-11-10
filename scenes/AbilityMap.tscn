@@ -18,7 +18,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 right_disconnects = true
-scroll_offset = Vector2(-40, -40)
 script = ExtResource("1_1e6l2")
 
 [connection signal="connection_request" from="GraphEdit" to="GraphEdit" method="_on_connection_request"]
