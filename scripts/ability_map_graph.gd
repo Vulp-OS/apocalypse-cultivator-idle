@@ -78,6 +78,8 @@ func add_dao(dao, tier, num_in_tier):
 	newDao.show_close = false
 	newDao.position_offset.x = tier * 300
 	newDao.position_offset.y = num_in_tier[tier] * 70 * tier
+	newDao.tooltip_text = "Description: This is the Dao of " + dao + ".\nTier: " + str(tier) + "\nType: Filler"
+	newDao.theme = load("res://assets/theme_graph_node.tres")
 	
 	match tier:
 		1:
