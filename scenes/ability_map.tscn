@@ -30,14 +30,4 @@ size_flags_vertical = 3
 scroll_offset = Vector2(0, -27)
 script = ExtResource("2_6dweq")
 
-[node name="GraphNode" type="GraphNode" parent="VBoxContainer/DaoGraph"]
-layout_mode = 0
-offset_top = 27.0
-offset_right = 36.0
-offset_bottom = 81.0
-mouse_filter = 1
-
-[node name="Label" type="Label" parent="VBoxContainer"]
-layout_mode = 2
-
 [connection signal="connection_request" from="VBoxContainer/DaoGraph" to="VBoxContainer/DaoGraph" method="_on_connection_request"]

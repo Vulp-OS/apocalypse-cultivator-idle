@@ -97,12 +97,23 @@ func _dao_selected():
 	for child in children:
 		if child.selected:
 			var left_enabled = child.is_slot_enabled_left(0)
-			
 			child.set_slot(0, left_enabled, 0, Color.GREEN, true, 0, Color.GREEN)
+			
+			for con in get_connection_list():
+				if con.to == child.name:
+					var leftNode = get_node(str(con.from))
+					var left_left_enabled = leftNode.is_slot_enabled_left(0)
+					leftNode.set_slot(0, left_left_enabled, 0, Color.WHITE, true, 0, Color.GREEN)
+				if con.from == child.name:
+					var rightNode = get_node(str(con.to))
+					rightNode.set_slot(0, true, 0, Color.GREEN, true, 0, Color.WHITE)
 			
 func _dao_deselected():
 	var children = get_children()
 	for child in children:
-		if child.get_connection_output_color(0) == Color.GREEN:
+		if child.get_connection_output_color(0) == Color.GREEN && child is GraphNode:
 			var left_enabled = child.is_slot_enabled_left(0)
 			child.set_slot(0, left_enabled, 0, Color.WHITE, true, 0, Color.WHITE)
+		if child.is_slot_enabled_left(0):
+			if child.get_connection_input_color(0) == Color.GREEN && child is GraphNode:
+				child.set_slot(0, true, 0, Color.WHITE, true, 0, Color.WHITE)
