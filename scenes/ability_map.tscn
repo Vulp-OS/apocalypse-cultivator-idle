@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://r0cqwdlxea03"]
 
-[ext_resource type="Script" path="res://scripts/AbilityMapGraph.gd" id="1_1e6l2"]
-[ext_resource type="Script" path="res://scripts/AbilityTreeSelector.gd" id="1_j5apq"]
+[ext_resource type="Script" path="res://scripts/abilty_tree_selector.gd" id="1_gkr7f"]
+[ext_resource type="Script" path="res://scripts/ability_map_graph.gd" id="2_6dweq"]
 
 [node name="AbilityMap" type="Control"]
 layout_mode = 3
@@ -18,7 +18,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_j5apq")
+script = ExtResource("1_gkr7f")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
@@ -28,6 +28,6 @@ layout_mode = 2
 layout_mode = 2
 size_flags_vertical = 3
 right_disconnects = true
-script = ExtResource("1_1e6l2")
+script = ExtResource("2_6dweq")
 
 [connection signal="connection_request" from="VBoxContainer/dao_graph" to="VBoxContainer/dao_graph" method="_on_connection_request"]
