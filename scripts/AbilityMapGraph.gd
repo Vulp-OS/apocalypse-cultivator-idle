@@ -14,34 +14,40 @@ func instantiate_dao_from_db():
 	var db = SQLite.new()
 	db.path = "res://assets/dao.sqlite"
 	db.open_db()
-	db.query("SELECT dao.name, dao.tier, parent FROM dao LEFT JOIN parents on dao.name=parents.name;")
+	db.query("SELECT name, tier, parent FROM tiers;")
 	var length = len(db.query_result)
 	for i in length:
-		var foundational = false
 		var dao = str(db.query_result[i]["name"])
 		var parent = str(db.query_result[i]["parent"])
 		var tier = db.query_result[i]["tier"]
-		if tier == 1:
-			foundational = true
-		
+		print("Dao: " + dao + ", Parent: " + parent + ", Tier: " + str(tier))
+
 		if not get_node_or_null(dao):
-			add_dao(dao, foundational)
+			add_dao(dao, tier)
+			
 		if parent != "<null>":
 			if not get_node_or_null(parent):
-				add_dao(parent)
+				add_dao(parent, tier)
 			connect_node(dao, 0, parent, 0)
 		
 	db.close_db()
 
-func add_dao(dao, foundational = false):
+func add_dao(dao, tier):
 	var newDao = GraphNode.new()
 	newDao.name = dao
 	newDao.title = dao
 	newDao.add_child(Control.new())
-	if foundational:
+	
+	var tierLabel = Label.new()
+	tierLabel.text = "Tier: " + str(tier)
+	
+	newDao.add_child(tierLabel)
+	if tier == 1:
 		newDao.set_slot(0, false, 0, Color.WHITE, true, 0, Color.WHITE)
 	else:
 		newDao.set_slot(0, true, 0, Color.WHITE, true, 0, Color.WHITE)
+	
+	
 	newDao.connect("node_selected", _dao_selected)
 	newDao.connect("node_deselected", _dao_deselected)
 	
