@@ -36,7 +36,7 @@ func instantiate_dao_from_db(tree):
 	var db = SQLite.new()
 	db.path = db_path
 	db.open_db()
-	db.query("SELECT name, tier, parent FROM tiers WHERE path LIKE '%" + str(tree) + "%' ORDER BY tier DESC;")
+	db.query("SELECT name, tier, parent FROM tiers WHERE path LIKE '%" + str(tree) + "%' ORDER BY tier DESC, path ASC, name ASC")
 	var length = len(db.query_result)
 	var num_in_tier = Dictionary()
 	for i in 6:
@@ -64,7 +64,7 @@ func add_dao(dao, tier, y_offset_factor):
 	newDao.draggable = false
 	newDao.resizable = false
 	newDao.show_close = false
-	newDao.position_offset.x = tier * 250
+	newDao.position_offset.x = tier * 300
 	newDao.position_offset.y = y_offset_factor * 100
 	
 	# This adds the handles (slot) to the GraphNode. Without it, adding 
