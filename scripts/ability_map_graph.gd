@@ -1,6 +1,8 @@
 extends GraphEdit
 
 const db_path = "res://assets/dao.sqlite"
+const unselected_color = Color.WHITE
+const selected_color = Color.GREEN
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# Disable the GraphEdit control bar
@@ -9,7 +11,14 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	pass
-		
+	
+func _input(_event):
+	if Input.is_action_pressed("ui_cancel"):
+		get_tree().quit()
+	
+	if Input.is_action_pressed("ui_focus_next"):
+		get_tree().change_scene_to_file("res://scenes/main.tscn")
+
 # This is kind of being treated like a function responding to a signal. 
 # We're not using signals because I didn't want to figure out how to make my own
 # This is called when a button from the ButtonBar is toggled. It receives,
@@ -21,7 +30,10 @@ func tree_selected(tree):
 	for con in get_connection_list():
 		disconnect_node(con.from, con.from_port, con.to, con.to_port)
 	for child in get_children():
-		if (child is GraphNode):
+		if child is GraphNode:
+			remove_child(child)
+			child.queue_free()
+		if child is Panel:
 			remove_child(child)
 			child.queue_free()
 	
@@ -53,7 +65,7 @@ func instantiate_dao_from_db(tree):
 		
 		if parent != "<null>":
 			connect_node(dao, 0, parent, 0)
-
+			
 	db.close_db()
 
 func add_dao(dao, tier, num_in_tier):
@@ -65,26 +77,30 @@ func add_dao(dao, tier, num_in_tier):
 	newDao.resizable = false
 	newDao.show_close = false
 	newDao.position_offset.x = tier * 300
-	newDao.position_offset.y = num_in_tier[tier] * 100 * tier
+	newDao.position_offset.y = num_in_tier[tier] * 70 * tier
+	
+	match tier:
+		1:
+			newDao.self_modulate = Color.LIGHT_BLUE
+		2:
+			newDao.self_modulate = Color.MEDIUM_PURPLE
+		3:
+			newDao.self_modulate = Color.PALE_VIOLET_RED
+		4:
+			newDao.self_modulate = Color.ORANGE
+		5:
+			newDao.self_modulate = Color.GREEN_YELLOW
+	
 	
 	# This adds the handles (slot) to the GraphNode. Without it, adding 
 	# connections is weird
 	newDao.add_child(Control.new())
-
-	var tierLabel = Label.new()
-	tierLabel.text = "Tier: " + str(tier)
-
-	# This container helps make sure that nodes are arranged predictably
-	var textContainer = VBoxContainer.new()	
-	textContainer.add_child(tierLabel)
-	
-	newDao.add_child(textContainer)
 	
 	# Don't put an input (left) connector slot on tier 1 nodes.
 	if tier == 1:
-		newDao.set_slot(0, false, 0, Color.WHITE, true, 0, Color.WHITE)
+		newDao.set_slot(0, false, 0, unselected_color, true, 0, unselected_color)
 	else:
-		newDao.set_slot(0, true, 0, Color.WHITE, true, 0, Color.WHITE)
+		newDao.set_slot(0, true, 0, unselected_color, true, 0, unselected_color)
 	
 	# Set up the ability to change connection colors when a node is selected
 	newDao.connect("node_selected", _dao_selected)
@@ -92,28 +108,28 @@ func add_dao(dao, tier, num_in_tier):
 	
 	add_child(newDao)
 
+func set_dao_slot_color(dao, color, left = true, right = true):
+	if left:
+		dao.set_slot_color_left(0, color)
+	if right:
+		dao.set_slot_color_right(0, color)
+
 func _dao_selected():
 	var children = get_children()
 	for child in children:
 		if child.selected:
-			var left_enabled = child.is_slot_enabled_left(0)
-			child.set_slot(0, left_enabled, 0, Color.GREEN, true, 0, Color.GREEN)
+			set_dao_slot_color(child, selected_color)
 			
 			for con in get_connection_list():
 				if con.to == child.name:
-					var leftNode = get_node(str(con.from))
-					var left_left_enabled = leftNode.is_slot_enabled_left(0)
-					leftNode.set_slot(0, left_left_enabled, 0, Color.WHITE, true, 0, Color.GREEN)
+					set_dao_slot_color(get_node(str(con.from)), selected_color, false , true)
 				if con.from == child.name:
-					var rightNode = get_node(str(con.to))
-					rightNode.set_slot(0, true, 0, Color.GREEN, true, 0, Color.WHITE)
+					set_dao_slot_color(get_node(str(con.to)), selected_color, true, false)
 			
 func _dao_deselected():
 	var children = get_children()
 	for child in children:
-		if child.get_connection_output_color(0) == Color.GREEN && child is GraphNode:
-			var left_enabled = child.is_slot_enabled_left(0)
-			child.set_slot(0, left_enabled, 0, Color.WHITE, true, 0, Color.WHITE)
-		if child.is_slot_enabled_left(0):
-			if child.get_connection_input_color(0) == Color.GREEN && child is GraphNode:
-				child.set_slot(0, true, 0, Color.WHITE, true, 0, Color.WHITE)
+		if child.get_connection_output_color(0) == selected_color && child is GraphNode:
+			set_dao_slot_color(child, unselected_color)
+		if child.get_connection_input_color(0) == selected_color && child is GraphNode:
+			set_dao_slot_color(child, unselected_color)

@@ -27,7 +27,37 @@ layout_mode = 2
 [node name="DaoGraph" type="GraphEdit" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-scroll_offset = Vector2(0, -27)
+scroll_offset = Vector2(-960, -538)
+arrange_nodes_button_hidden = true
 script = ExtResource("2_6dweq")
 
-[connection signal="connection_request" from="VBoxContainer/DaoGraph" to="VBoxContainer/DaoGraph" method="_on_connection_request"]
+[node name="Panel" type="Panel" parent="VBoxContainer/DaoGraph"]
+custom_minimum_size = Vector2(500, 200)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SplashText" type="RichTextLabel" parent="VBoxContainer/DaoGraph/Panel"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -11.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "[center]
+[b][font_size=26]Dao Paths[/font_size][/b]
+
+Select a Dao Path from the bar at the top of the screen to see how you can expand your abilities!
+[/center]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 2
