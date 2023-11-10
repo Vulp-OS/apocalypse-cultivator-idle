@@ -1,0 +1,63 @@
+[gd_scene load_steps=3 format=3 uid="uid://r0cqwdlxea03"]
+
+[ext_resource type="Script" path="res://scripts/abilty_tree_selector.gd" id="1_gkr7f"]
+[ext_resource type="Script" path="res://scripts/ability_map_graph.gd" id="2_6dweq"]
+
+[node name="AbilityMap" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_gkr7f")
+
+[node name="ButtonBar" type="HBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="DaoGraph" type="GraphEdit" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+scroll_offset = Vector2(-960, -538)
+arrange_nodes_button_hidden = true
+script = ExtResource("2_6dweq")
+
+[node name="Panel" type="Panel" parent="VBoxContainer/DaoGraph"]
+custom_minimum_size = Vector2(500, 200)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SplashText" type="RichTextLabel" parent="VBoxContainer/DaoGraph/Panel"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -11.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "[center]
+[b][font_size=26]Dao Paths[/font_size][/b]
+
+Select a Dao Path from the bar at the top of the screen to see how you can expand your abilities!
+[/center]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 2
