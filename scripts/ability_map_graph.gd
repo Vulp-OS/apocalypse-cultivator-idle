@@ -48,7 +48,7 @@ func instantiate_dao_from_db(tree):
 	var db = SQLite.new()
 	db.path = db_path
 	db.open_db()
-	db.query("SELECT name, tier, parent FROM tiers WHERE path LIKE '%" + str(tree) + "%' ORDER BY tier DESC, path ASC, name ASC")
+	db.query("SELECT tiers.name, tier, parent, prerequisites FROM tiers RIGHT JOIN dao ON dao.name=tiers.name WHERE path LIKE '%" + str(tree) + "%' ORDER BY tier DESC, path ASC, tiers.name ASC")
 	var length = len(db.query_result)
 	var num_in_tier = Dictionary()
 	for i in 6:
@@ -58,17 +58,18 @@ func instantiate_dao_from_db(tree):
 		var dao = str(db.query_result[i]["name"])
 		var parent = str(db.query_result[i]["parent"])
 		var tier = db.query_result[i]["tier"]
+		var prerequisites = db.query_result[i]["prerequisites"]
 
 		if not get_node_or_null(dao):
 			num_in_tier[tier] += 1
-			add_dao(dao, tier, num_in_tier)
+			add_dao(dao, tier, num_in_tier, prerequisites)
 		
 		if parent != "<null>":
 			connect_node(dao, 0, parent, 0)
 			
 	db.close_db()
 
-func add_dao(dao, tier, num_in_tier):
+func add_dao(dao, tier, num_in_tier, prerequisites = ""):
 	# Set up basic settings for new GraphNode that represents a single dao
 	var newDao = GraphNode.new()
 	newDao.name = dao
@@ -78,7 +79,10 @@ func add_dao(dao, tier, num_in_tier):
 	newDao.show_close = false
 	newDao.position_offset.x = tier * 300
 	newDao.position_offset.y = num_in_tier[tier] * 70 * tier
-	newDao.tooltip_text = "Description: This is the Dao of " + dao + ".\nTier: " + str(tier) + "\nType: Filler"
+	if tier > 1:
+		newDao.tooltip_text = "Name: " + dao + "\nTier: " + str(tier) + "\nType: Filler" + "\nPrerequisites: Own at least one connected Tier " + str(tier-1) + " Dao."
+	else:
+		newDao.tooltip_text = "Name: " + dao + "\nTier: " + str(tier) + "\nType: Filler" + "\nPrerequisites: The Skill " + prerequisites
 	newDao.theme = load("res://assets/theme_graph_node.tres")
 	
 	match tier:
