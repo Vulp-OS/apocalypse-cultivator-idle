@@ -49,14 +49,14 @@ func instantiate_dao_from_db(tree):
 
 		if not get_node_or_null(dao):
 			num_in_tier[tier] += 1
-			add_dao(dao, tier, num_in_tier[tier])
+			add_dao(dao, tier, num_in_tier)
 		
 		if parent != "<null>":
 			connect_node(dao, 0, parent, 0)
 
 	db.close_db()
 
-func add_dao(dao, tier, y_offset_factor):
+func add_dao(dao, tier, num_in_tier):
 	# Set up basic settings for new GraphNode that represents a single dao
 	var newDao = GraphNode.new()
 	newDao.name = dao
@@ -65,7 +65,7 @@ func add_dao(dao, tier, y_offset_factor):
 	newDao.resizable = false
 	newDao.show_close = false
 	newDao.position_offset.x = tier * 300
-	newDao.position_offset.y = y_offset_factor * 100
+	newDao.position_offset.y = num_in_tier[tier] * 100 * tier
 	
 	# This adds the handles (slot) to the GraphNode. Without it, adding 
 	# connections is weird
