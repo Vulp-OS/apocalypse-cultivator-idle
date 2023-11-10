@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://r0cqwdlxea03"]
+[gd_scene load_steps=3 format=3 uid="uid://r0cqwdlxea03"]
 
 [ext_resource type="Script" path="res://scripts/AbilityMapGraph.gd" id="1_1e6l2"]
+[ext_resource type="Script" path="res://scripts/AbilityTreeSelector.gd" id="1_j5apq"]
 
 [node name="AbilityMap" type="Control"]
 layout_mode = 3
@@ -10,14 +11,23 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="GraphEdit" type="GraphEdit" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_j5apq")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="dao_graph" type="GraphEdit" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
 right_disconnects = true
 script = ExtResource("1_1e6l2")
 
-[connection signal="connection_request" from="GraphEdit" to="GraphEdit" method="_on_connection_request"]
+[connection signal="connection_request" from="VBoxContainer/dao_graph" to="VBoxContainer/dao_graph" method="_on_connection_request"]

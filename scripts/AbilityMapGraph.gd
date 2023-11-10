@@ -1,35 +1,42 @@
 extends GraphEdit
 
+const db_path = "res://assets/dao.sqlite"
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	#get_zoom_hbox().visible = false
-	instantiate_dao_from_db()
-	arrange_nodes()
+	get_zoom_hbox().visible = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	pass
+		
+func tree_selected(tree):
+	for con in get_connection_list():
+		disconnect_node(con.from, con.from_port, con.to, con.to_port)
+	for child in get_children():
+		remove_child(child)
+		
+	instantiate_dao_from_db(tree)
+	arrange_nodes()
 
-func instantiate_dao_from_db():
+func instantiate_dao_from_db(tree):
 	var db = SQLite.new()
-	db.path = "res://assets/dao.sqlite"
+	db.path = db_path
 	db.open_db()
-	db.query("SELECT name, tier, parent FROM tiers;")
+	db.query("SELECT name, tier, parent FROM tiers WHERE path LIKE '%" + str(tree) + "%' ORDER BY tier DESC;")
 	var length = len(db.query_result)
 	for i in length:
 		var dao = str(db.query_result[i]["name"])
 		var parent = str(db.query_result[i]["parent"])
 		var tier = db.query_result[i]["tier"]
-		print("Dao: " + dao + ", Parent: " + parent + ", Tier: " + str(tier))
 
 		if not get_node_or_null(dao):
 			add_dao(dao, tier)
-			
+
 		if parent != "<null>":
 			if not get_node_or_null(parent):
 				add_dao(parent, tier)
 			connect_node(dao, 0, parent, 0)
-		
+
 	db.close_db()
 
 func add_dao(dao, tier):
