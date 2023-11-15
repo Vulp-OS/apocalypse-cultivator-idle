@@ -83,7 +83,7 @@ func add_dao(dao, tier, num_in_tier, prerequisites = ""):
 		newDao.tooltip_text = "Name: " + dao + "\nTier: " + str(tier) + "\nType: Filler" + "\nPrerequisites: Own at least one connected Tier " + str(tier-1) + " Dao."
 	else:
 		newDao.tooltip_text = "Name: " + dao + "\nTier: " + str(tier) + "\nType: Filler" + "\nPrerequisites: The Skill " + prerequisites
-	newDao.theme = load("res://assets/theme_graph_node.tres")
+	newDao.theme = load("res://assets/themes/theme_graph_node.tres")
 	
 	match tier:
 		1:
