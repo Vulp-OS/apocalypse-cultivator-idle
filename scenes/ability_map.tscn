@@ -27,7 +27,6 @@ layout_mode = 2
 [node name="DaoGraph" type="GraphEdit" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-scroll_offset = Vector2(-960, -538)
 arrange_nodes_button_hidden = true
 script = ExtResource("2_6dweq")
 

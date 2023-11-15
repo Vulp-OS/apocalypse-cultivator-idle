@@ -28,3 +28,7 @@ project/assembly_name="Apocalypse Cultivator Idle"
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/godot-sqlite/plugin.cfg")
+
+[gui]
+
+theme/custom="res://assets/ui_theme.tres"
