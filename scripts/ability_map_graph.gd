@@ -79,24 +79,50 @@ func add_dao(dao, tier, num_in_tier, prerequisites = ""):
 	newDao.show_close = false
 	newDao.position_offset.x = tier * 300
 	newDao.position_offset.y = num_in_tier[tier] * 70 * tier
+	
 	if tier > 1:
 		newDao.tooltip_text = "Name: " + dao + "\nTier: " + str(tier) + "\nType: Filler" + "\nPrerequisites: Own at least one connected Tier " + str(tier-1) + " Dao."
 	else:
 		newDao.tooltip_text = "Name: " + dao + "\nTier: " + str(tier) + "\nType: Filler" + "\nPrerequisites: The Skill " + prerequisites
-	newDao.theme = load("res://assets/themes/theme_graph_node.tres")
+
+	# Override the stylebox for GraphNodes. This is complicated and annoying when we want to
+	# programmatically override the background color of the node. Normally, we could use a theme
+	# for the vast majority of this, but the stylebox settings for GraphNodes when creating the new
+	# theme don't contain the correct settings, so we have to set all the relevant settings manually
+	# any time we want to programmatically change a single poperty of the StyleBoxFlat.
+	var frame = StyleBoxFlat.new()
+	
+	# This is a recreation of the default values used by Godot for GraphNodes
+	frame.border_width_top = 30
+	frame.corner_radius_top_left = 3
+	frame.corner_radius_top_right = 3
+	frame.corner_radius_bottom_left = 3
+	frame.corner_radius_bottom_right = 3
+	frame.corner_detail = 5
+	frame.content_margin_left = 18
+	frame.content_margin_top = 42
+	frame.content_margin_right = 18
+	frame.content_margin_bottom = 12
 	
 	match tier:
 		1:
-			newDao.self_modulate = Color.LIGHT_BLUE
+			frame.border_color = "#31343299" # Title bar
+			frame.bg_color = "#323e42" # Lower background color
 		2:
-			newDao.self_modulate = Color.MEDIUM_PURPLE
+			frame.border_color = "#62505599" # Title bar
+			frame.bg_color = "#7c454599" # Lower background color
 		3:
-			newDao.self_modulate = Color.PALE_VIOLET_RED
+			frame.border_color = "#3a5f3b99"
+			frame.bg_color = "#516b4399"
 		4:
-			newDao.self_modulate = Color.ORANGE
+			frame.border_color = "#67523999"
+			frame.bg_color = "#9e805c99"
 		5:
-			newDao.self_modulate = Color.GREEN_YELLOW
+			frame.border_color = "#796c6499"
+			frame.bg_color = "#ac908699"
 	
+	# Overwrite the stylebox with our custom one
+	newDao.add_theme_stylebox_override("frame", frame)
 	
 	# This adds the handles (slot) to the GraphNode. Without it, adding 
 	# connections is weird
