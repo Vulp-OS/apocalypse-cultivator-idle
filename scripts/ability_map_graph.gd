@@ -135,7 +135,10 @@ func _dao_selected():
 func _dao_deselected():
 	var children = get_children()
 	for child in children:
-		if child.get_connection_output_color(0) == selected_color && child is GraphNode:
-			set_dao_slot_color(child, unselected_color)
-		if child.get_connection_input_color(0) == selected_color && child is GraphNode:
-			set_dao_slot_color(child, unselected_color)
+		if child is GraphNode:
+			if child.is_slot_enabled_right(0):
+				if child.get_connection_output_color(0) == selected_color:
+					set_dao_slot_color(child, unselected_color)
+			if child.is_slot_enabled_left(0):
+				if child.get_connection_input_color(0) == selected_color:
+					set_dao_slot_color(child, unselected_color)
