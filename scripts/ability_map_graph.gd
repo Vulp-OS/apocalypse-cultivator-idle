@@ -104,22 +104,31 @@ func add_dao(dao, tier, num_in_tier, prerequisites = ""):
 	frame.content_margin_right = 18
 	frame.content_margin_bottom = 12
 	
+	# Custom Settings. Who doesn't love drop shadows?
+	frame.shadow_color = "#00000044"
+	frame.shadow_size = 6
+	frame.shadow_offset.x=4
+	frame.shadow_offset.y=4
+	
+	# Colors below are from the cretaceous-16 swatch from Lospec
+	# border_color = Title Bar
+	# bg_color = Lower Content Section
 	match tier:
 		1:
-			frame.border_color = "#31343299" # Title bar
-			frame.bg_color = "#323e42" # Lower background color
+			frame.border_color = "#31343299" # Dark Grey
+			frame.bg_color = "#323e42" # Dark Turquise
 		2:
-			frame.border_color = "#62505599" # Title bar
-			frame.bg_color = "#7c454599" # Lower background color
+			frame.border_color = "#3a5f3b99" # Medium Green?
+			frame.bg_color = "#516b4399" # Light-Medium Green?
 		3:
-			frame.border_color = "#3a5f3b99"
-			frame.bg_color = "#516b4399"
+			frame.border_color = "#67523999" # Dark Orange
+			frame.bg_color = "#9e805c99" # Yellow-Tan
 		4:
-			frame.border_color = "#67523999"
-			frame.bg_color = "#9e805c99"
+			frame.border_color = "#796c6499" # Light Red
+			frame.bg_color = "#ac908699" # Lighter Red
 		5:
-			frame.border_color = "#796c6499"
-			frame.bg_color = "#ac908699"
+			frame.border_color = "#62505599" # Desaturated Plum? Mauve? Who knows?
+			frame.bg_color = "#7c454599" # Medium Red
 	
 	# Overwrite the stylebox with our custom one
 	newDao.add_theme_stylebox_override("frame", frame)
