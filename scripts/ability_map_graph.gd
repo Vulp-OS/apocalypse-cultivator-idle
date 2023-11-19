@@ -13,10 +13,10 @@ func _process(_delta):
 	pass
 	
 func _input(_event):
-	if Input.is_action_pressed("ui_cancel"):
+	if Input.is_action_just_pressed("ui_cancel"):
 		get_tree().quit()
 	
-	if Input.is_action_pressed("ui_focus_next"):
+	if Input.is_action_just_pressed("ui_focus_next"):
 		get_tree().change_scene_to_file("res://scenes/main.tscn")
 
 # This is kind of being treated like a function responding to a signal. 
