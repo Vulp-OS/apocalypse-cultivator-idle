@@ -4,10 +4,6 @@ extends Node
 func _ready():
 	pass # Replace with function body.
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
 func _input(_event):
 	var nextscene = "res://scenes/main.tscn"
 	var scene = get_tree().get_current_scene().name
