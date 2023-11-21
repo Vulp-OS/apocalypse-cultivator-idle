@@ -1,3 +1,4 @@
 # Godot 4+ specific ignores
 .godot/
 exports/
+assets/third_party/subject_to_copyright/

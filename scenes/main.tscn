@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://b5l5rv42v4twg"]
+[gd_scene load_steps=3 format=3 uid="uid://b5l5rv42v4twg"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_etl4k"]
+[ext_resource type="Script" path="res://scripts/input_handler.gd" id="2_2vjo5"]
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -10,6 +11,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_etl4k")
+
+[node name="InputHandler" type="Node" parent="."]
+script = ExtResource("2_2vjo5")
 
 [node name="Panel" type="Panel" parent="."]
 custom_minimum_size = Vector2(500, 200)
