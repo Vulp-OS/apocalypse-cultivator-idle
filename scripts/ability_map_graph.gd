@@ -1,8 +1,8 @@
 extends GraphEdit
 
-const db_path = "res://assets/dao.sqlite"
-const unselected_color = Color.WHITE
-const selected_color = Color.GREEN
+const db_path: String = "res://assets/dao.sqlite"
+const unselected_color: Color = Color.WHITE
+const selected_color: Color = Color.GREEN
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# Disable the GraphEdit control bar
@@ -16,7 +16,7 @@ func _process(_delta):
 # We're not using signals because I didn't want to figure out how to make my own
 # This is called when a button from the ButtonBar is toggled. It receives,
 # as an argument, the name of the button (which is a top-level Dao in SQLite)
-func tree_selected(tree):
+func tree_selected(tree: String):
 	# Before we can delete GraphNodes, we need to disconnect them. 
 	# The connections get upset and throw an error for each end of the connection
 	# if the GraphNode is deleted beforehand
@@ -31,27 +31,22 @@ func tree_selected(tree):
 			child.queue_free()
 	
 	instantiate_dao_from_db(tree)
-	
-	# This is a built-in function for the GraphEdit node.
-	# We either need to fix it, or write something ourselves that works better.
-	# TODO: don't use this
-	# arrange_nodes()
 
-func instantiate_dao_from_db(tree):
-	var db = SQLite.new()
+func instantiate_dao_from_db(tree: String):
+	var db: SQLite = SQLite.new()
 	db.path = db_path
 	db.open_db()
 	db.query("SELECT tiers.name, tier, parent, prerequisites FROM tiers RIGHT JOIN dao ON dao.name=tiers.name WHERE path LIKE '%" + str(tree) + "%' ORDER BY tier DESC, path ASC, tiers.name ASC")
-	var length = len(db.query_result)
-	var num_in_tier = Dictionary()
+	var length: int = len(db.query_result)
+	var num_in_tier: Dictionary = {}
 	for i in 6:
 		num_in_tier[i] = 0
 	
 	for i in length:
-		var dao = str(db.query_result[i]["name"])
-		var parent = str(db.query_result[i]["parent"])
-		var tier = db.query_result[i]["tier"]
-		var prerequisites = db.query_result[i]["prerequisites"]
+		var dao: String = str(db.query_result[i]["name"])
+		var parent: String = str(db.query_result[i]["parent"])
+		var tier: int = db.query_result[i]["tier"]
+		var prerequisites: String = str(db.query_result[i]["prerequisites"])
 
 		if not get_node_or_null(dao):
 			num_in_tier[tier] += 1
@@ -62,9 +57,9 @@ func instantiate_dao_from_db(tree):
 			
 	db.close_db()
 
-func add_dao(dao, tier, num_in_tier, prerequisites = ""):
+func add_dao(dao: String, tier: int, num_in_tier: Dictionary, prerequisites: String = ""):
 	# Set up basic settings for new GraphNode that represents a single dao
-	var newDao = GraphNode.new()
+	var newDao: GraphNode = GraphNode.new()
 	newDao.name = dao
 	newDao.title = dao
 	newDao.draggable = false
@@ -83,7 +78,7 @@ func add_dao(dao, tier, num_in_tier, prerequisites = ""):
 	# for the vast majority of this, but the stylebox settings for GraphNodes when creating the new
 	# theme don't contain the correct settings, so we have to set all the relevant settings manually
 	# any time we want to programmatically change a single poperty of the StyleBoxFlat.
-	var frame = StyleBoxFlat.new()
+	var frame: StyleBoxFlat = StyleBoxFlat.new()
 	
 	# This is a recreation of the default values used by Godot for GraphNodes
 	frame.border_width_top = 30
@@ -142,7 +137,7 @@ func add_dao(dao, tier, num_in_tier, prerequisites = ""):
 	
 	add_child(newDao)
 
-func set_dao_slot_color(dao, color, left = true, right = true):
+func set_dao_slot_color(dao: Node, color: Color, left: bool = true, right: bool = true):
 	if left:
 		dao.set_slot_color_left(0, color)
 	if right:

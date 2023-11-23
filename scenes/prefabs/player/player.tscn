@@ -1,76 +1,76 @@
 [gd_scene load_steps=24 format=3 uid="uid://bxxboletpbt30"]
 
-[ext_resource type="Texture2D" uid="uid://dysamle810k6s" path="res://assets/third_party/Anokolisa_pixel_crawler/Heroes/Knight/Death/Death-Sheet.png" id="1_d6n0q"]
-[ext_resource type="Script" path="res://scenes/prefabs/player.gd" id="1_kw7tc"]
-[ext_resource type="Texture2D" uid="uid://4sypbf74thg8" path="res://assets/third_party/Anokolisa_pixel_crawler/Heroes/Knight/Idle/Idle-Sheet.png" id="2_j6hs1"]
-[ext_resource type="Texture2D" uid="uid://bgq7h87l73117" path="res://assets/third_party/Anokolisa_pixel_crawler/Heroes/Knight/Run/Run-Sheet.png" id="3_w3i53"]
+[ext_resource type="Script" path="res://scenes/prefabs/player/player.gd" id="1_rbj8m"]
+[ext_resource type="Texture2D" uid="uid://dysamle810k6s" path="res://assets/third_party/Anokolisa_pixel_crawler/Heroes/Knight/Death/Death-Sheet.png" id="2_ty110"]
+[ext_resource type="Texture2D" uid="uid://4sypbf74thg8" path="res://assets/third_party/Anokolisa_pixel_crawler/Heroes/Knight/Idle/Idle-Sheet.png" id="3_f61ty"]
+[ext_resource type="Texture2D" uid="uid://bgq7h87l73117" path="res://assets/third_party/Anokolisa_pixel_crawler/Heroes/Knight/Run/Run-Sheet.png" id="4_xb6t8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nnetx"]
-atlas = ExtResource("1_d6n0q")
+atlas = ExtResource("2_ty110")
 region = Rect2(53, 3, 33, 29)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wp7tg"]
-atlas = ExtResource("1_d6n0q")
+atlas = ExtResource("2_ty110")
 region = Rect2(101, 3, 33, 29)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8jtyh"]
-atlas = ExtResource("1_d6n0q")
+atlas = ExtResource("2_ty110")
 region = Rect2(149, 3, 33, 29)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m8xhd"]
-atlas = ExtResource("1_d6n0q")
+atlas = ExtResource("2_ty110")
 region = Rect2(5, 3, 33, 29)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d2lml"]
-atlas = ExtResource("1_d6n0q")
+atlas = ExtResource("2_ty110")
 region = Rect2(245, 3, 33, 29)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_210b7"]
-atlas = ExtResource("1_d6n0q")
+atlas = ExtResource("2_ty110")
 region = Rect2(197, 3, 33, 29)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ywfqc"]
-atlas = ExtResource("2_j6hs1")
+atlas = ExtResource("3_f61ty")
 region = Rect2(5, 3, 19, 29)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wnbmj"]
-atlas = ExtResource("2_j6hs1")
+atlas = ExtResource("3_f61ty")
 region = Rect2(37, 3, 19, 29)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_faxsl"]
-atlas = ExtResource("2_j6hs1")
+atlas = ExtResource("3_f61ty")
 region = Rect2(69, 3, 19, 29)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p8f50"]
-atlas = ExtResource("2_j6hs1")
+atlas = ExtResource("3_f61ty")
 region = Rect2(101, 3, 19, 29)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_16t3i"]
-atlas = ExtResource("3_w3i53")
+atlas = ExtResource("4_xb6t8")
 region = Rect2(21, 33, 24, 31)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lhd8u"]
-atlas = ExtResource("3_w3i53")
+atlas = ExtResource("4_xb6t8")
 region = Rect2(21, 33, 24, 31)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8ybi7"]
-atlas = ExtResource("3_w3i53")
+atlas = ExtResource("4_xb6t8")
 region = Rect2(85, 33, 24, 31)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_onxfy"]
-atlas = ExtResource("3_w3i53")
+atlas = ExtResource("4_xb6t8")
 region = Rect2(149, 33, 24, 31)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3vjob"]
-atlas = ExtResource("3_w3i53")
+atlas = ExtResource("4_xb6t8")
 region = Rect2(213, 33, 24, 31)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bivw7"]
-atlas = ExtResource("3_w3i53")
+atlas = ExtResource("4_xb6t8")
 region = Rect2(277, 33, 24, 31)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mahlx"]
-atlas = ExtResource("3_w3i53")
+atlas = ExtResource("4_xb6t8")
 region = Rect2(341, 33, 24, 31)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_4psgn"]
@@ -151,7 +151,7 @@ animations = [{
 size = Vector2(20, 30)
 
 [node name="player" type="CharacterBody2D"]
-script = ExtResource("1_kw7tc")
+script = ExtResource("1_rbj8m")
 metadata/_edit_lock_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
