@@ -5,8 +5,8 @@ func _ready():
 	pass # Replace with function body.
 
 func _input(_event):
-	var nextscene = "res://scenes/main.tscn"
-	var scene = get_tree().get_current_scene().name
+	var nextscene := "res://scenes/main.tscn"
+	var scene := get_tree().get_current_scene().name
 
 	if Input.is_action_just_pressed("ui_cancel"):
 		get_tree().quit()
